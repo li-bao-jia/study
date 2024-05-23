@@ -1,0 +1,22 @@
+syntax = "proto3"; // 定义 proto 版本
+
+package greeter;
+
+// 定义服务
+service Greeter{
+  // 定义远程低哦啊用的方法
+  rpc sayHello(HelloReq) returns (HelloRes) {}
+}
+
+// 生成js
+message HelloReq{
+  string username = 1;
+  int64 age = 2;
+  string sex = 3;
+  bool flag = 4;
+}
+
+message HelloRes{
+  string message = 1;
+  string result = 2;
+}
