@@ -5,7 +5,7 @@ var protoLoader = require('@grpc/proto-loader')
 var path = require('path')
 var PROTO_PATH = path.join(__dirname, "./protos/greeter.proto")
 
-
+// 2、加载proto文件
 packageDefinition = protoLoader.loadSync(
     PROTO_PATH,
     {
@@ -26,10 +26,10 @@ function sayHello(req, res) {
 }
 
 // 4、启动服务
-let server = new grpc.Server();
+let index = new grpc.Server();
 // 注册服务
-server.addService(greeterProto.Greeter.service, {sayHello:sayHello})
+index.addService(greeterProto.Greeter.service, {sayHello:sayHello})
 // 监听端口
-server.bindAsync("0.0.0.0:3001", grpc.ServerCredentials.createInsecure(), ()=>{
+index.bindAsync("0.0.0.0:3001", grpc.ServerCredentials.createInsecure(), ()=>{
         console.log("service start at 3001")
 })
