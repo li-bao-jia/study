@@ -1,3 +1,6 @@
+// web方式，用于其他建设中项目调用
+// 这里不能直接使用，因为fetch()不存在
+
 async function jsonRpcRequest(url, method, params) {
     const data = {
         jsonrpc: '2.0',
