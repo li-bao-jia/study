@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package study;
+
+// 定义服务
+service Study {
+  rpc Upload (UploadRequest) returns (UploadResponse);
+  rpc Preview (PreviewRequest) returns (PreviewResponse);
+}
+
+// 定义请求和响应消息
+message UploadRequest {
+  string filename = 1;
+  bytes filedata = 2;
+}
+
+message UploadResponse {
+  string message = 1;
+}
+
+message PreviewRequest {
+  string filename = 1;
+}
+
+message PreviewResponse {
+  string previewUrl = 1;
+}

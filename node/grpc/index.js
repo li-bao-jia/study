@@ -1,35 +1,38 @@
-// 1、引入proto文件
-var grpc = require('@grpc/grpc-js')
-var protoLoader = require('@grpc/proto-loader')
+const grpc = require('@grpc/grpc-js');
+const protoLoader = require('@grpc/proto-loader');
+const path = require('path');
 
-var path = require('path')
-var PROTO_PATH = path.join(__dirname, "./protos/greeter.proto")
-
-// 2、加载proto文件
-packageDefinition = protoLoader.loadSync(
-    PROTO_PATH,
-    {
-        keepCase:true,
+// 加载 proto 文件
+const PROTO_PATH = path.join(__dirname, 'proto/greeter.proto');
+const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+        keepCase: true,
         longs: String,
         enums: String,
         defaults: true,
-        oneofs: true,
-    }
-);
-var greeterProto = grpc.loadPackageDefinition(packageDefinition).greeter
+        oneofs: true
+});
+const studyProto = grpc.loadPackageDefinition(packageDefinition).study;
 
-// 3、定义远程调用方法
-function sayHello(req, res) {
-        console.log(req)
-
-        res(null, {message:"success", result:"this is grpc server"})
+// 实现服务方法
+function upload(call, callback) {
+        // 处理上传逻辑
+        console.log('Received upload request:', call.request);
+        callback(null, { message: 'File uploaded successfully' });
 }
 
-// 4、启动服务
-let index = new grpc.Server();
-// 注册服务
-index.addService(greeterProto.Greeter.service, {sayHello:sayHello})
-// 监听端口
-index.bindAsync("0.0.0.0:3001", grpc.ServerCredentials.createInsecure(), ()=>{
-        console.log("service start at 3001")
-})
+function preview(call, callback) {
+        // 处理预览逻辑
+        console.log('Received preview request:', call.request);
+        callback(null, { previewUrl: 'http://example.com/preview/' + call.request.filename });
+}
+
+// 启动 gRPC 服务器
+function main() {
+        const server = new grpc.Server();
+        server.addService(studyProto.Study.service, { upload, preview });
+        server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure(), () => {
+                console.log('Server running at http://0.0.0.0:50051');
+        });
+}
+
+main();

@@ -1,33 +1,35 @@
-// 1、引入proto文件
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
+const path = require('path');
 
-var path = require('path')
-var PROTO_PATH = path.join(__dirname, "./protos/greeter.proto")
+// 加载 proto 文件
+const PROTO_PATH = path.join(__dirname, '/proto/greeter.proto');
+const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
+    keepCase: true,
+    longs: String,
+    enums: String,
+    defaults: true,
+    oneofs: true
+});
+const studyProto = grpc.loadPackageDefinition(packageDefinition).study;
 
-// 2、加载proto文件
-packageDefinition = protoLoader.loadSync(
-    PROTO_PATH,
-    {
-        keepCase: true,
-        longs: String,
-        enums: String,
-        defaults: true,
-        oneofs: true
-    }
-);
-var greeterProto = grpc.loadPackageDefinition(packageDefinition).greeter;
+// 创建 gRPC 客户端
+const client = new studyProto.Study('localhost:50051', grpc.credentials.createInsecure());
 
-// 3、建立链接
-var client = new greeterProto.Greeter('127.0.0.1:3001', grpc.credentials.createInsecure());
-
-client.sayHello({username: '张三'}, (err, response) => {
-
-    console.log(response)
-
-    if (err) {
-        console.error(err);
+// 调用 Upload 方法
+client.upload({ filename: 'example.txt', filedata: Buffer.from('Hello World') }, (error, response) => {
+    if (error) {
+        console.error('Upload error:', error);
     } else {
-        console.log('Greeting:', response.message);
+        console.log('Upload response:', response);
+    }
+});
+
+// 调用 Preview 方法
+client.preview({ filename: 'example.txt' }, (error, response) => {
+    if (error) {
+        console.error('Preview error:', error);
+    } else {
+        console.log('Preview response:', response);
     }
 });
