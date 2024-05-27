@@ -1,7 +1,5 @@
-<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-  <p>微服务通信方式</p>
-  <p>每种通信方式各有优缺点，适合不同的场景</p>
-</div>
+<p align="center">微服务通信方式</p>
+<p align="center">每种通信方式各有优缺点，适合不同的场景</p>
 
 <p align="center">
 <a href="https://github.com/li-bao-jia"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
