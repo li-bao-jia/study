@@ -1,7 +1,6 @@
-<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-  <p>Node.js JSON-RPC</p>
-  <p>展示如何使用 JSON-RPC 来实现一个 Node.js 微服务</p>
-</div>
+<p align="center">Node.js JSON-RPC</p>
+<p align="center">展示如何使用 JSON-RPC 来实现一个 Node.js 微服务</p>
+
 
 ### 概述 JSON-RPC
 

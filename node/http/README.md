@@ -1,7 +1,6 @@
-<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-  <p>Node.js HTTP API</p>
-  <p>展示如何使用 HTTP API 来实现一个 Node.js 微服务</p>
-</div>
+<p align="center">Node.js HTTP API</p>
+<p align="center">展示如何使用 HTTP API 来实现一个 Node.js 微服务</p>
+
 
 ### 概述 HTTP API
 - 请求方式: 通过 HTTP 请求方法（GET, POST, PUT, DELETE）来表示不同的操作。
